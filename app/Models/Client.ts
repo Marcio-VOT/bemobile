@@ -4,10 +4,10 @@ import Address from './Address'
 import Phone from './Phone'
 
 export default class Client extends BaseModel {
-  @hasOne(() => Address)
+  @hasOne(() => Address, {localKey: 'id', foreignKey: 'client_id'})
   public address: HasOne<typeof Address>
 
-  @hasOne(() => Phone)
+  @hasOne(() => Phone, {localKey: 'id', foreignKey: 'client_id'})
   public phone: HasOne<typeof Phone>
 
   @column({ isPrimary: true })
