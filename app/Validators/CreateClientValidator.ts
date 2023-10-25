@@ -49,22 +49,30 @@ export default class CreateClientValidator {
       ]),
       country: schema.string({},[
         rules.maxLength(50),
+        rules.minLength(3),
       ]),
       state: schema.string({},[
         rules.maxLength(50),
+        rules.minLength(3),
       ]),
       city: schema.string({},[
         rules.maxLength(50),
+        rules.minLength(3),
       ]),
       street: schema.string({},[
         rules.maxLength(50),
+        rules.minLength(3),
       ]),
       neighborhood: schema.string({},[
         rules.maxLength(50),
+        rules.minLength(3),
       ]),
-      number: schema.number(),
+      number: schema.number([
+        rules.unsigned(),
+      ]),
       complement: schema.string.optional({},[
         rules.maxLength(100),
+        rules.minLength(3),
       ]),
     }),
   })
