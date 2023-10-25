@@ -8,9 +8,9 @@ export default class Sale extends BaseModel {
   @column()
   public deleted: boolean
   @column()
-  public client_id: string
+  public client_id: number
   @column()
-  public product_id: string
+  public product_id: number
   @column()
   public quantity: number
   @column()

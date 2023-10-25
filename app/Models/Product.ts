@@ -1,7 +1,11 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Sale from './Sale'
 
 export default class Product extends BaseModel {
+  @hasMany(()=> Sale, {localKey: 'id', foreignKey: 'product_id'})
+  public sales: HasMany<typeof Sale>
+
   @column({ isPrimary: true })
   public id: number
 
