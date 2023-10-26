@@ -17,7 +17,7 @@ export default class SalesController {
 
     if(product.stock < payload.quantity) {
       res.status(httpStatus.CONFLICT)
-      return res.send({message: 'Product quantity is not enough'})
+      return res.send({message: 'Product stock is not enough'})
     }
 
     const trx = await Database.transaction()
