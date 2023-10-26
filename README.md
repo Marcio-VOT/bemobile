@@ -1,4 +1,77 @@
-# Documentação da API BeMobile
+# Documentação da API Be Mobile
+
+ - Este projeto se trata de um desafio técnico proposto pela Be Mobile. Sendo alguns de seus requisitos: 
+ 
+ ## Rotas do Sistema
+- cadastro de usuário do sistema (signup)
+- login com JWT de usuário cadastrado (login)
+- clientes:
+    - listar todos os clientes cadastrados (index)
+        - apenas dados principais devem vir aqui;
+        - ordenar pelo id.
+    - detalhar um(a) cliente e vendas a ele(a) (show)
+        - trazer as vendas mais recentes primeiro;
+        - possibilidade de filtrar as vendas por mês + ano.
+    - adicionar um(a) cliente (store)
+    - editar um(a) cliente (update)
+    - excluir um(a) cliente e vendas a ele(a) (delete)
+- produtos:
+    - listar todos os produtos cadastrados (index)
+        - apenas dados principais devem vir aqui;
+        - ordenar alfabeticamente.
+    - detalhar um produto (show)
+    - criar um produto (store)
+    - editar um produto (update)
+    - exclusão lógica ("soft delete") de um produto (delete)
+- vendas:
+    - registrar venda de 1 produto a 1 cliente (store)
+
+## Pré-requisitos
+
+Antes de executar um projeto de API AdonisJS, você precisa ter o seguinte software instalado em seu sistema:
+
+- [Node.js](https://nodejs.org/) 
+- [npm](https://www.npmjs.com/) 
+- [AdonisJS CLI](https://adonisjs.com) 
+
+## Instalação
+
+Para instalar o projeto, primeiro clone o repositório:
+
+```bash
+git clone https://github.com/Marcio-VOT/bemobile.git
+```
+
+Em seguida, navegue até o diretório do projeto e instale as dependências:
+
+```bash
+cd seu-projeto
+npm install
+```
+
+## Configuração
+
+Antes de executar o projeto, você precisa configurar a conexão com o banco de dados. Copie o arquivo .env.example para .env:
+
+```bash
+cp .env.example .env
+```
+
+Em seguida, abra o arquivo .env e defina as variáveis DB_CONNECTION, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD e DB_DATABASE para corresponder à configuração do seu banco de dados.
+
+## Iniciando o Servidor
+
+Para iniciar o servidor, execute o seguinte comando:
+
+```bash
+npm run build
+npm run start
+OU 
+npm run dev
+```
+
+Isso iniciará o servidor na porta 3333. Você pode então usar uma ferramenta como o Postman para enviar solicitações para a API.
+
 
 **Nota Importante**: Todos os recursos, com exceção dos recursos de usuários, são rotas autorizadas. Isso significa que apenas usuários autenticados têm acesso a esses recursos.
 
