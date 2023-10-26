@@ -8,8 +8,9 @@ export default class ProductsController {
     res.send(
       (
         await Product.query()
-          .select('id', 'title', 'image', 'price', 'stock', 'category', 'author')
+          .whereNull('deleted_at')
           .orderBy('title', 'asc')
+          .select('id', 'title', 'image', 'price', 'stock', 'category', 'author')
       )
     )
   }
