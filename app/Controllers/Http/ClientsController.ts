@@ -71,9 +71,9 @@ export default class ClientsController {
   public async update ({ params: { id }, request: req, response: res }: HttpContextContract) {
     const payload = await req.validate(UpdateClientValidator)
 
-    const client = await Client.find('id', id)
-    const phone = await Phone.find('client_id', id)
-    const address = await Address.find('client_id', id)
+    const client = await Client.findBy('id', id)
+    const phone = await Phone.findBy('client_id', id)
+    const address = await Address.findBy('client_id', id)
 
     if(!client || !phone || !address){
       res.status(httpStatus.NOT_FOUND)

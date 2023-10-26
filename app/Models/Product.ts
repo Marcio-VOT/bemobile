@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, afterFetch, beforeFetch, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Sale from './Sale'
 
 export default class Product extends BaseModel {
@@ -33,8 +33,13 @@ export default class Product extends BaseModel {
   public deleted_at: DateTime | null
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public created_at: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updated_at: DateTime
+  //create a method that ignore the deleted_at column
+  @beforeFetch()
+  public static ignoreDeleted (query){
+    query.whereNull('deleted_at')
+  }
 }

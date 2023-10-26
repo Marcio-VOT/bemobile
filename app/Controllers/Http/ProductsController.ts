@@ -10,7 +10,6 @@ export default class ProductsController {
     res.send(
       (
         await Product.query()
-          .whereNull('deleted_at')
           .orderBy('title', 'asc')
           .select('id', 'title', 'image', 'price', 'stock', 'category', 'author')
       )
@@ -40,7 +39,7 @@ export default class ProductsController {
   }
 
   public async show ({ params: { id }, response: res }: HttpContextContract) {
-    const product = await Product.query().whereNull('deleted_at').where('id', id).first()
+    const product = await Product.query().where('id', id).first()
 
     if(!product){
       res.status(httpStatus.NOT_FOUND)

@@ -1,8 +1,8 @@
 # Documentação da API Be Mobile
 
- - Este projeto se trata de um desafio técnico proposto pela Be Mobile. Sendo alguns de seus requisitos: 
+ - Este projeto se trata de uma API RESTful para o gerenciamento de clientes, produtos (livros), vendas e suas relações.
  
- ## Rotas do Sistema
+ ## Features
 - cadastro de usuário do sistema (signup)
 - login com JWT de usuário cadastrado (login)
 - clientes:
