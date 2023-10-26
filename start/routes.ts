@@ -21,9 +21,13 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.resource('/clients', 'ClientsController').apiOnly()
-  Route.resource('/products', 'ProductsController').apiOnly()
-  Route.resource('/sales', 'SalesController').only(['store'])
+  Route.group(() => {
+    Route.resource('/clients', 'ClientsController').apiOnly()
+    Route.resource('/products', 'ProductsController').apiOnly()
+    Route.resource('/sales', 'SalesController').only(['store'])
+  }).middleware('auth:api')
+  Route.post('/signup', 'UsersController.signup')
+  Route.post('/login', 'UsersController.login')
 }
 ).prefix('api')
 
