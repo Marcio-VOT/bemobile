@@ -4,6 +4,7 @@ import Address from 'App/Models/Address'
 import Client from 'App/Models/Client'
 import Phone from 'App/Models/Phone'
 import CreateClientValidator from 'App/Validators/CreateClientValidator'
+import UpdateClientValidator from 'App/Validators/UpdateClientValidator'
 import httpStatus from 'http-status'
 
 export default class ClientsController {
@@ -58,5 +59,23 @@ export default class ClientsController {
       .firstOrFail()
 
     res.send(client)
+  }
+
+  public async update ({ params: { id }, request: req, response: res }: HttpContextContract) {
+    const payload = await req.validate(UpdateClientValidator)
+
+    const client = await Client.findByOrFail('id', id)
+    client.merge({...payload.client})
+    await client.save()
+
+    const phone = await Phone.findByOrFail('client_id', id)
+    phone.merge({phone: payload.phone})
+    await phone.save()
+
+    const address = await Address.findByOrFail('client_id', id)
+    address.merge({...payload.address})
+    await address.save()
+
+    res.send({message: 'Client updated'})
   }
 }
