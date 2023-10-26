@@ -9,7 +9,7 @@ import httpStatus from 'http-status'
 
 export default class ClientsController {
   public async index ({ request: _req, response: res }: HttpContextContract) {
-    const clientList = await Client.query().preload('phone', (query)=> {
+    const clientList = await Client.query().select('id', 'name', 'cpf').preload('phone', (query)=> {
       query.select('phone')
     }).orderBy('id', 'asc')
     res.send({clientList})
@@ -17,10 +17,6 @@ export default class ClientsController {
 
   public async store ({ request: req, response: res }: HttpContextContract) {
     const payload = await req.validate(CreateClientValidator)
-
-    const duplicatedClient = await Client.findBy('cpf', payload.client.cpf)
-    res.abortIf(duplicatedClient, 'CPF already registered', httpStatus.CONFLICT)
-
     const trx = await Database.transaction()
 
     try {
@@ -33,12 +29,18 @@ export default class ClientsController {
       res.send({client, clientPhone, clientAddress})
     } catch (error) {
       await trx.rollback()
-      res.abort(error.message, httpStatus.BAD_REQUEST)
+      res.status(httpStatus.BAD_REQUEST)
+      res.send({message: error.message})
     }
   }
 
   public async destroy ({ params: { id }, response: res }: HttpContextContract) {
-    (await Client.findByOrFail('id', id)).delete()
+    const client = await Client.findBy('id', id)
+    if(!client){
+      res.status(httpStatus.NOT_FOUND)
+      return res.send({message: 'Client not found'})
+    }
+    client.delete()
     res.send({message: 'Client deleted'})
   }
 
@@ -56,7 +58,12 @@ export default class ClientsController {
         query.orderBy('created_at', 'desc')
       })
       .where('id', id)
-      .firstOrFail()
+      .first()
+
+    if(!client){
+      res.status(httpStatus.NOT_FOUND)
+      return res.send({message: 'Client not found'})
+    }
 
     res.send(client)
   }
@@ -64,17 +71,18 @@ export default class ClientsController {
   public async update ({ params: { id }, request: req, response: res }: HttpContextContract) {
     const payload = await req.validate(UpdateClientValidator)
 
-    const client = await Client.findByOrFail('id', id)
-    client.merge({...payload.client})
-    await client.save()
+    const client = await Client.find('id', id)
+    const phone = await Phone.find('client_id', id)
+    const address = await Address.find('client_id', id)
 
-    const phone = await Phone.findByOrFail('client_id', id)
-    phone.merge({phone: payload.phone})
-    await phone.save()
+    if(!client || !phone || !address){
+      res.status(httpStatus.NOT_FOUND)
+      return res.send({message: 'Client data not found', client, phone, address})
+    }
 
-    const address = await Address.findByOrFail('client_id', id)
-    address.merge({...payload.address})
-    await address.save()
+    await client.merge({...payload.client}).save()
+    await phone.merge({phone: payload.phone}).save()
+    await address.merge({...payload.address}).save()
 
     res.send({message: 'Client updated'})
   }
