@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Product from 'App/Models/Product'
+import CreateProductValidator from 'App/Validators/CreateProductValidator'
 import httpStatus from 'http-status'
 
 export default class ProductsController {
@@ -11,5 +12,13 @@ export default class ProductsController {
           .orderBy('title', 'asc')
       )
     )
+  }
+
+  public async store ({ request: req, response: res }: HttpContextContract) {
+    const payload = await req.validate(CreateProductValidator)
+    const product = await Product.create(payload)
+
+    res.status(httpStatus.CREATED)
+    res.send({ product })
   }
 }
