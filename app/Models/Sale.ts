@@ -6,8 +6,6 @@ export default class Sale extends BaseModel {
   public id: number
 
   @column()
-  public deleted: boolean
-  @column()
   public client_id: number
   @column()
   public product_id: number

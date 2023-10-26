@@ -25,8 +25,12 @@ export default class Product extends BaseModel {
   public stock: number
   @column()
   public category: string
-  @column()
-  public publication_date: string
+
+  @column.dateTime()
+  public published_at: DateTime
+
+  @column.dateTime()
+  public deleted_at: DateTime | null = null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -14,11 +14,12 @@ export default class extends BaseSchema {
       table.float('price').notNullable()
       table.integer('stock').notNullable()
       table.string('category', 80).notNullable()
-      table.string('publication_date', 80).notNullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
+      table.timestamp('published_at', { useTz: true }).notNullable()
+      table.timestamp('deleted_at', { useTz: true }).nullable().defaultTo(null)
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
