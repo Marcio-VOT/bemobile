@@ -30,4 +30,7 @@ Route.group(() => {
   Route.post('/login', 'UsersController.login')
 }
 ).prefix('api')
+Route.get('/', async () => {
+  return { hello: 'world' }
+})
 
