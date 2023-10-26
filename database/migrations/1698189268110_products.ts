@@ -11,8 +11,8 @@ export default class extends BaseSchema {
       table.text('description').notNullable()
       table.string('isbn').notNullable().unique()
       table.string('image').notNullable()
-      table.float('price').notNullable()
-      table.integer('stock').notNullable()
+      table.float('price').notNullable().unsigned()
+      table.integer('stock').notNullable().unsigned()
       table.string('category', 80).notNullable()
 
       /**

@@ -23,6 +23,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
   Route.resource('/clients', 'ClientsController').apiOnly()
   Route.resource('/products', 'ProductsController').apiOnly()
+  Route.resource('/sales', 'SalesController').only(['store'])
 }
 ).prefix('api')
 
