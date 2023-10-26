@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Product from 'App/Models/Product'
 import CreateProductValidator from 'App/Validators/CreateProductValidator'
+import UpdateProductValidator from 'App/Validators/UpdateProductValidator'
 import httpStatus from 'http-status'
 import { DateTime } from 'luxon'
 
@@ -45,6 +46,21 @@ export default class ProductsController {
       res.status(httpStatus.NOT_FOUND)
       return res.send({ message: 'Product not found' })
     }
+
+    res.send({ product })
+  }
+
+  public async update ({ params: { id }, request: req, response: res }: HttpContextContract) {
+    const payload = await req.validate(UpdateProductValidator)
+    const product = await Product.find(id)
+
+    if(!product){
+      res.status(httpStatus.NOT_FOUND)
+      return res.send({ message: 'Product not found' })
+    }
+
+    product.merge(payload)
+    await product.save()
 
     res.send({ product })
   }
