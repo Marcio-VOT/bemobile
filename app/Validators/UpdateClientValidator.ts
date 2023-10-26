@@ -88,5 +88,30 @@ export default class UpdateClientValidator {
    * }
    *
    */
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'client.name.maxLength': 'The client name must be at most 255 characters long',
+    'client.name.minLength': 'The client name must be at least 3 characters long',
+    'client.cpf.maxLength': 'The CPF must be exactly 11 digits long',
+    'client.cpf.minLength': 'The CPF must be exactly 11 digits long',
+    'client.cpf.regex': 'The CPF must contain only digits',
+    'client.cpf.unique': 'The CPF is already taken',
+    'phone.mobile': 'The phone number must be a valid mobile number',
+    'phone.unique': 'The phone number is already taken',
+    'address.zip_code.maxLength': 'The zip code must be exactly 8 digits long',
+    'address.zip_code.minLength': 'The zip code must be exactly 8 digits long',
+    'address.zip_code.regex': 'The zip code must contain only digits',
+    'address.country.maxLength': 'The country name must be at most 50 characters long',
+    'address.country.minLength': 'The country name must be at least 3 characters long',
+    'address.state.maxLength': 'The state name must be at most 50 characters long',
+    'address.state.minLength': 'The state name must be at least 3 characters long',
+    'address.city.maxLength': 'The city name must be at most 50 characters long',
+    'address.city.minLength': 'The city name must be at least 3 characters long',
+    'address.street.maxLength': 'The street name must be at most 50 characters long',
+    'address.street.minLength': 'The street name must be at least 3 characters long',
+    'address.neighborhood.maxLength': 'The neighborhood name must be at most 50 characters long',
+    'address.neighborhood.minLength': 'The neighborhood name must be at least 3 characters long',
+    'address.number.unsigned': 'The address number must be a positive integer',
+    'address.complement.maxLength': 'The complement must be at most 100 characters long',
+    'address.complement.minLength': 'The complement must be at least 3 characters long',
+  }
 }
