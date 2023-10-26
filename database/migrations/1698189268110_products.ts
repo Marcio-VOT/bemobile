@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('title', 80).notNullable()
       table.string('author', 80).notNullable()
       table.text('description').notNullable()
-      table.string('isbn').notNullable()
+      table.string('isbn').notNullable().unique()
       table.string('image').notNullable()
       table.float('price').notNullable()
       table.integer('stock').notNullable()
