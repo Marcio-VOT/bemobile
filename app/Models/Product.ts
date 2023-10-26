@@ -30,7 +30,7 @@ export default class Product extends BaseModel {
   public published_at: DateTime
 
   @column.dateTime()
-  public deleted_at: DateTime | null = null
+  public deleted_at: DateTime | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
