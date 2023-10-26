@@ -58,7 +58,7 @@ export default class CreateProductValidator {
       rules.maxLength(80),
       rules.minLength(3),
     ]),
-    published_at: schema.date.optional(),
+    published_at: schema.date(),
   })
 
   /**
