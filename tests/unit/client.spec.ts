@@ -80,5 +80,11 @@ test.group('Client', async () => {
 
     (await response.loginAs(user)).assertStatus(httpStatus.OK)
   })
+
+  test('should delete a client', async ({client}) => {
+    const response = client.delete(`/api/clients/${clientO.id}`).guard('api');
+
+    (await response.loginAs(user)).assertStatus(httpStatus.OK)
+  })
 })
 
