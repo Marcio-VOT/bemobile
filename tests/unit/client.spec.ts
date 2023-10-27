@@ -1,4 +1,4 @@
-import { faker, faker } from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 import { test } from '@japa/runner'
 import Address from 'App/Models/Address'
 import Client from 'App/Models/Client'
